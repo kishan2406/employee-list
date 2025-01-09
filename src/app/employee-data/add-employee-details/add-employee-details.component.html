@@ -1,0 +1,95 @@
+<div class="mainDivAddEmployee">
+  <app-header [headerData]="headerData"></app-header>
+  <div class="container">
+    <div class="formDiv">
+      <div class="ImgDiv col-md-6">
+        <img
+          [src]="imageDetails.imageUrl"
+          style="border-radius: 10px"
+          class="img-fluid"
+          [alt]="imageDetails.altText"
+        />
+      </div>
+      <form
+        class="form col-md-6"
+        [formGroup]="addEmployeeDetails"
+        (ngSubmit)="submitEmployeeData()"
+      >
+        <mat-form-field appearance="outline" class="commonFields">
+          <mat-label>Employee name</mat-label>
+          <input
+            matInput
+            placeholder="Enter employee name"
+            formControlName="employeeName"
+          />
+          <mat-icon matIconPrefix>person</mat-icon>
+          <mat-error *ngIf="hasError('employeeName', 'required')"
+            >Employee name is required</mat-error
+          >
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="commonFields">
+          <mat-label>Select role</mat-label>
+          <mat-icon matIconPrefix>work</mat-icon>
+
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let data of roles" [value]="data">
+              {{ data }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="hasError('role', 'required')"
+            >Choose at least one</mat-error
+          >
+        </mat-form-field>
+       
+        <div class="d-flex justify-content-between align-items-center">
+            <!-- From Date Picker -->
+            <mat-form-field appearance="outline" class="commonFields">
+              <mat-label>From Date</mat-label>
+              <input matInput [matDatepicker]="picker1" formControlName="fromDate" />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconPrefix [for]="picker1"></mat-datepicker-toggle>
+              <mat-error *ngIf="hasError('fromDate', 'required')"
+              >From date is required</mat-error
+            >
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          
+            <div class="arrowForwardDiv">
+              <mat-icon class="arrowForward">arrow_forward</mat-icon>
+            </div>
+          
+            <!-- To Date Picker -->
+            <mat-form-field appearance="outline" class="commonFields">
+              <mat-label>To Date</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="toDate" />
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconPrefix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          
+        <section class="footerComp">
+          <div class="footerDiv">
+            <button
+            type="button"
+              mat-flat-button
+              style="background-color: #f2f2f2 !important; color: #1da1f2"
+              (click)="cancelForm()"
+            >
+              Cancel
+            </button>
+            <button
+            type="submit"
+              mat-flat-button
+              style="background-color: #1da1f2 !important; color: #fff"
+            >
+              Save
+            </button>
+          </div>
+        </section>
+        <!-- </div> -->
+      </form>
+    </div>
+  </div>
+</div>

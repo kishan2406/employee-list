@@ -1,0 +1,63 @@
+.mainDivAddEmployee {
+    background-color: #f2f2f2;
+    @media screen and (max-width: 768px) {
+        background-color: transparent;
+    height: 100%;
+  }
+  .formDiv {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    padding-top: 70px;
+    padding-bottom: 10px;
+    @media screen and (max-width: 768px) {
+      padding-bottom: 0px;
+    }
+    .form {
+      border: solid #e8e6e6 1px;
+      border-radius: 10px;
+      padding: 2%;
+      position: relative;
+
+      background-color: #fff;
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        border: none;
+        position: static;
+      }
+      .commonFields {
+        width: 100%;
+        margin-top: 4px;
+        mat-icon,mat-datepicker-toggle{
+            color:#1da1f2 !important
+        }
+      }
+      .arrowForwardDiv {
+        padding: 0 5px 10px 5px;
+        .arrowForward {
+          color: #1da1f2;
+        }
+      }
+    }
+    .ImgDiv {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+
+    .footerComp {
+      position: absolute;
+      bottom: 15px;
+      right: 20px;
+      .footerDiv {
+        display: flex;
+        justify-content: end;
+
+        gap: 20px;
+        padding: 2% 0 0 0;
+      }
+    }
+  }
+}

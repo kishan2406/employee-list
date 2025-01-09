@@ -1,0 +1,145 @@
+<div class="mainEmployeeDiv">
+  <div class="headerDiv">
+    <app-header [headerData]="headerDataFromList"></app-header>
+  </div>
+  <div class="container">
+    <h2 class="headingCurrentEmployees" *ngIf="currentEmployeeArr.length > 0">
+      Current Employees
+    </h2>
+    <div class="currentEmployeeDiv" *ngIf="currentEmployeeArr.length > 0">
+      <ul>
+        <li *ngFor="let employee of currentEmployeeArr; let i = index">
+          <div
+            class="employee-card"
+            (touchstart)="onTouchStart($event)"
+            (touchend)="onSwipe($event, i, 'current')"
+            (mousedown)="onMouseDown($event)"
+            (mouseup)="onMouseUp($event, i, 'current')"
+            (touchstart)="onTouchStart($event)"
+            [ngClass]="{ 'swiped-left': employee.swipedLeft }"
+          >
+            <h2>{{ employee.employeeName }}</h2>
+            <p>{{ employee.role }}</p>
+            <p>From {{ employee.fromDate | date : "dd MMM, yyyy" }}</p>
+            <button
+            *ngIf="employee.swipedLeft"
+            mat-mini-fab
+            class="edit-icon"
+            (click)="editEmployee(employee)"
+            style="
+              position: absolute;
+              right: 50px;
+              top: 50%;
+              transform: translateY(-50%);
+            "
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+            <!-- Delete Icon -->
+            <button
+              *ngIf="employee.swipedLeft"
+              class="delete-icon"
+              (click)="deleteEmployee(i, 'current')"
+              style="
+                position: absolute;
+                right: -5px;
+                top: 50%;
+                transform: translateY(-50%);
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <hr />
+          </div>
+        </li>
+      </ul>
+    </div>
+    <h2 class="headingPreviousEmployees" *ngIf="previousEmployeeArr.length > 0">
+      Previous Employees
+    </h2>
+    <div class="currentEmployeeDiv" *ngIf="previousEmployeeArr.length > 0">
+      <ul>
+        <li *ngFor="let employee of previousEmployeeArr; let i = index">
+          <div
+            class="employee-card"
+            (mousedown)="onMouseDown($event)"
+            (mouseup)="onMouseUp($event, i, 'previous')"
+            (touchstart)="onTouchStart($event)"
+            (touchstart)="onTouchStart($event)"
+            (touchend)="onSwipe($event, i, 'previous')"
+            [ngClass]="{ 'swiped-left': employee.swipedLeft }"
+          >
+            <h2>{{ employee.employeeName }}</h2>
+            <p>{{ employee.role }}</p>
+            <p>
+              From {{ employee.fromDate | date : "dd MMM, yyyy" }} -
+              {{ employee.toDate | date : "dd MMM, yyyy" }}
+            </p>
+            <hr />
+
+            <button
+              *ngIf="employee.swipedLeft"
+              mat-mini-fab
+              class="edit-icon"
+              (click)="editEmployee(employee)"
+              style="
+                position: absolute;
+                right: 50px;
+                top: 50%;
+                transform: translateY(-50%);
+              "
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <!-- Delete Icon -->
+            <button
+              *ngIf="employee.swipedLeft"
+              mat-mini-fab
+              class="delete-icon"
+              (click)="deleteEmployee(i, 'previous')"
+              style="
+                position: absolute;
+                right: -5px;
+                top: 50%;
+                transform: translateY(-50%);
+              "
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="isLoading" class="loading-spinner">
+    <!-- Show a spinner or loading text while data is loading -->
+    <p>Loading...</p>
+  </div>
+  <div class="mainImgDiv" *ngIf="
+  !isLoading && currentEmployeeArr.length === 0 && previousEmployeeArr.length === 0
+">
+    <div
+      class="no-employee-found"
+      
+      class="mainImgDiv"
+    >
+      <img
+        src="assets/no-employee-record/no-employee.svg"
+        class="img-fluid"
+        alt="No record found image"
+      />
+    </div>
+  </div>
+
+  <section class="mainFooterDiv">
+   
+    <div class="footerText" *ngIf="
+     currentEmployeeArr.length > 0 || previousEmployeeArr.length > 0
+  ">Swipe left to Delete </div>
+    <div>
+    <button class="addBtn" mat-fab matTooltip="Add" (click)="addEmployeeData()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  </section>
+</div>
